@@ -1,0 +1,19 @@
+maintainer=http://indiecomputing.com/
+pkgname=$(basename $(pwd))
+_gemname=bundler
+pkgver=1.12.5
+pkgrel=1
+pkgdesc="Manages a Ruby application's dependencies"
+arch=( 'any' )
+license=('MIT')
+depends=('ruby')
+source=("http://rubygems.org/downloads/$_gemname-$pkgver.gem")
+noextract=($_gemname-$pkgver.gem)
+options=('!strip')
+sha512sums=('e854186e06a2c09b532d5fa72ef75de3a9206b86b86ef4a7f6dbf5a02030a76efd43b213d440933252f2e2ead56d4675b2e180c0bd93cfaa870b408a5797a142')
+
+package() {
+    local _gemdir="$(ruby -e'puts Gem.default_dir')"
+    gem install --ignore-dependencies --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir/usr/bin" $_gemname-$pkgver.gem
+    rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+}
