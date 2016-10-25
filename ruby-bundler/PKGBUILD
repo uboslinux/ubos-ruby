@@ -1,7 +1,7 @@
 maintainer=http://indiecomputing.com/
 pkgname=$(basename $(pwd))
 _gemname=bundler
-pkgver=1.12.5
+pkgver=1.13.6
 pkgrel=1
 pkgdesc="Manages a Ruby application's dependencies"
 arch=( 'any' )
@@ -10,7 +10,7 @@ depends=('ruby')
 source=("http://rubygems.org/downloads/$_gemname-$pkgver.gem")
 noextract=($_gemname-$pkgver.gem)
 options=('!strip')
-sha512sums=('e854186e06a2c09b532d5fa72ef75de3a9206b86b86ef4a7f6dbf5a02030a76efd43b213d440933252f2e2ead56d4675b2e180c0bd93cfaa870b408a5797a142')
+sha512sums=('1bb77dcbd80c90cdaf173d4735c2a7b55d2b2b3faf323d26a596e2f22039cafa9e1ca39a76a735e258a318a59e7220451988e633d5da2038b6077f60c5edd7c7')
 
 package() {
     local _gemdir="$(ruby -e'puts Gem.default_dir')"
