@@ -10,7 +10,7 @@ depends=('ruby')
 source=("http://rubygems.org/downloads/$_gemname-$pkgver.gem")
 noextract=($_gemname-$pkgver.gem)
 options=('!strip')
-sha512sums=('1bb77dcbd80c90cdaf173d4735c2a7b55d2b2b3faf323d26a596e2f22039cafa9e1ca39a76a735e258a318a59e7220451988e633d5da2038b6077f60c5edd7c7')
+sha512sums=('cf333e266db0690582252a9248f3579a5be9e753c92c0b92e25d4542ddbbc15bfb7e1571fe9886264c0eba22c4510d118192e8f5f50f647b27eea83d68585238')
 
 package() {
     local _gemdir="$(ruby -e'puts Gem.default_dir')"
