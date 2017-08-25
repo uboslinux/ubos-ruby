@@ -1,0 +1,19 @@
+maintainer=http://indiecomputing.com/
+pkgname=$(basename $(pwd))
+_gemname=$(echo ${pkgname} | sed -e 's!^ruby-!!')
+pkgver=2.7.0
+pkgrel=1
+pkgdesc="An implementation of eRuby"
+arch=( 'any' )
+license=('MIT')
+depends=('ruby')
+source=("http://rubygems.org/downloads/${_gemname}-${pkgver}.gem")
+noextract=(${_gemname}-${pkgver}.gem)
+options=('!strip')
+sha512sums=('49b08b28656acaf3b0c88fe064bb0d5f79fd08b834d7eba9294217b0893c5a0244ac5dd54de0e52dd17e828a0110e54b29e8c2d75171d527da957917344a0f27')
+
+package() {
+    local _gemdir="$(ruby -e'puts Gem.default_dir')"
+    gem install --no-document --ignore-dependencies --no-user-install -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" ${_gemname}-${pkgver}.gem
+    rm "${pkgdir}/${_gemdir}/cache/${_gemname}-${pkgver}.gem"
+}
