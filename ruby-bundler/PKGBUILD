@@ -1,19 +1,19 @@
 maintainer=http://indiecomputing.com/
 pkgname=$(basename $(pwd))
-_gemname=bundler
-pkgver=1.15.0
+_gemname=$(echo ${pkgname} | sed -e 's!^ruby-!!')
+pkgver=1.15.4
 pkgrel=1
 pkgdesc="Manages a Ruby application's dependencies"
 arch=( 'any' )
 license=('MIT')
 depends=('ruby')
-source=("http://rubygems.org/downloads/$_gemname-$pkgver.gem")
-noextract=($_gemname-$pkgver.gem)
+source=("http://rubygems.org/downloads/${_gemname}-${pkgver}.gem")
+noextract=(${_gemname}-${pkgver}.gem)
 options=('!strip')
-sha512sums=('eff2334ad13513416250a8f9b635d010defa00c81a4ee7054e1d139fa3ef27960697ea06ae5c4ecc2ec36c835164e4bb696ebbce62684ecb79bdaf99452c5889')
+sha512sums=('15736d6bbae792fc029f078705cb2a4eae5f9f78e1219eb3f2d0d0e2c3092df3da97abd3b107c9abbbe680ed99f11d450b0402ab9bf3313cb7aa60e3f631bed8')
 
 package() {
     local _gemdir="$(ruby -e'puts Gem.default_dir')"
-    gem install --ignore-dependencies --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir/usr/bin" $_gemname-$pkgver.gem
-    rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+    gem install --no-document --ignore-dependencies --no-user-install -i "${pkgdir}/${_gemdir}" -n "${pkgdir}/usr/bin" ${_gemname}-${pkgver}.gem
+    rm "${pkgdir}/${_gemdir}/cache/${_gemname}-${pkgver}.gem"
 }
