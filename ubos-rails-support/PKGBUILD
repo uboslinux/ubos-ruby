@@ -1,0 +1,16 @@
+developer=http://indiecomputing.com/
+url=${developer}
+maintainer=http://indiecomputing.com/
+pkgname=$(basename $(pwd))
+pkgver=0.1
+pkgrel=1
+pkgdesc="Simplifies deploying Ruby-on-Rails apps on UBOS"
+arch=('any')
+license=("Ruby")
+options=('!strip')
+depends=('ruby' 'ruby-bundler')
+
+package() {
+    mkdir -p ${pkgdir}/usr/share/${pkgname}/bin
+    install -m755 ${startdir}/bin/setup-logging ${pkgdir}/usr/share/${pkgname}/bin/
+}
