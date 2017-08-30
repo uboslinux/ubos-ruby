@@ -12,10 +12,16 @@ use UBOS::Utils;
 my $appconfigid = $config->getResolve( 'appconfig.appconfigid' );
 my $appid       = $config->getResolve( 'appconfig.appid' );
 
-my $logDir = "/var/log/$appid/$appconfigid";
+my $logDir  = "/var/log/$appid/$appconfigid";
+my $logFile = "$logDir/production.log";
 
-unless( -d $logDir ) {
-    UBOS::Utils::mkdirDashP( $logDir, 0755, 'http', 'http' );
+if( 'deploy' eq $operation ) {
+    unless( -d $logDir ) {
+        UBOS::Utils::mkdirDashP( $logDir, 0755, 'http', 'http' );
+    }
+    unless( -e $logFile ) {
+        UBOS::Utils::saveFile( $logFile, '', 0644, 'http', 'http' );
+    }
 }
 
 1;

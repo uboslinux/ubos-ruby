@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+#
+# Invoke the Rails db:migrate
+#
+
+use strict;
+use warnings;
+
+use UBOS::Logging;
+use UBOS::Utils;
+
+my $datadir = $config->getResolve( 'appconfig.datadir' );
+
+if( 'install' eq $operation || 'upgrade' eq $operation ) {
+
+    my $out;
+    if( UBOS::Utils::myexec( "cd $datadir/approot; RAILS_ENV=production bin/rails db:migrate", undef, \$out, \$out )) {
+        error( 'db:migrate failed:', $out );
+    }
+}
+
+1;
+
