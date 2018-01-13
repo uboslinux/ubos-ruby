@@ -2,11 +2,11 @@ developer=http://indiecomputing.com/
 url=${developer}
 maintainer=http://indiecomputing.com/
 pkgname=$(basename $(pwd))
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="Simplifies deploying Ruby-on-Rails apps on UBOS"
 arch=('any')
-license=("Ruby")
+license=("RUBY")
 options=('!strip')
 depends=('ruby' 'ruby-bundler')
 
