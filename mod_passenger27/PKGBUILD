@@ -1,0 +1,47 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# For Ruby27 by Indie Computing
+
+pkgname=$(basename $(pwd))
+pkgver=6.0.9
+pkgrel=1.1
+pkgdesc="Fast and robust web server and application server for Ruby, Python and Node.js"
+arch=('x86_64')
+url="https://www.phusionpassenger.com"
+_watch="https://github.com/phusion/passenger/releases"
+license=('MIT')
+depends=('passenger27' 'apache')
+makedepends=('ruby27-rake' 'ruby27-rack' 'curl' 'apache')
+options=('!emptydirs' 'staticlibs')
+validpgpkeys=('D5F0851426939232F437AB722AC745A50A212A8C'
+              '16378A33A6EF16762922526E561F9B9CAC40B2F7'  # auto-software-signing@phusion.nl
+              'B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
+source=(https://s3.amazonaws.com/phusion-passenger/releases/passenger-$pkgver.tar.gz{,.asc})
+sha256sums=('9f727da309cc031da966536af47ef59ea61974c09138ec08c2a765d8f4c4f60a'
+            'SKIP')
+
+pkgverforked=('6.0.9-1')
+releasepage=('https://github.com/archlinux/svntogit-community/tree/packages/passenger/trunk')
+conflicts=('mod_passenger')
+
+build(){
+#  cp -r /usr/src/nginx .
+#  cd "$srcdir"/nginx
+#  ./configure --with-compat --add-dynamic-module=../$pkgbase-$pkgver/src/nginx_module
+#  make modules
+
+  cd "$srcdir"/passenger-$pkgver
+  rake-2.7 nginx CACHING=false
+  ruby-2.7 ./bin/passenger-install-apache2-module -a
+}
+
+package() {
+  cd "$srcdir"/passenger-$pkgver
+
+  mkdir -p "$pkgdir"/usr/lib/httpd/modules
+  ln -sf /usr/lib/passenger27/buildout/apache2/mod_passenger.so "$pkgdir"/usr/lib/httpd/modules/mod_passenger27.so
+
+  install -Dm644 "$srcdir"/passenger-$pkgver/LICENSE \
+                 "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  install -Dm644 "${startdir}/passenger27.load" -t "${pkgdir}/etc/httpd/mods-available/"
+}

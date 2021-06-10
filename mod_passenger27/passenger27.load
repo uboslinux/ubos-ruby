@@ -1,0 +1,3 @@
+LoadModule passenger_module /usr/lib/httpd/modules/mod_passenger27.so
+PassengerRoot /usr/lib/passenger27
+PassengerRuby /usr/bin/ruby-2.7
