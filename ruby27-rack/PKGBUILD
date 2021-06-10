@@ -12,7 +12,7 @@ url='https://rack.github.io/'
 arch=('any')
 license=('MIT')
 depends=('ruby2.7')
-makedepends=('ruby27-rdoc' 'ruby27-rake' 'ruby27-bundler' )
+makedepends=('ruby27-rdoc' 'ruby27-rake' 'ruby27' ) # bundler-2.7 is part of ruby2.7
 
 # 'ruby-minitest'
 # 'ruby-minitest-global_expectations' 'ruby-minitest-sprint')
